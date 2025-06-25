@@ -13,5 +13,7 @@ UCLASS()
 class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 {
 	GENERATED_BODY()
-	
+
+public:
+	APlayerCharacter();
 };
