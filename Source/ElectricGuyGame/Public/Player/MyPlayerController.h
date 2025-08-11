@@ -19,6 +19,12 @@ class ELECTRICGUYGAME_API AMyPlayerController : public APlayerController
 	GENERATED_BODY()
 public:
 	AMyPlayerController();
+
+	UPROPERTY(EditAnywhere)
+	class UCameraComponent* PlayerCamera;
+	UPROPERTY(EditAnywhere)
+	class USpringArmComponent* PlayerSpringArm;
+	
 protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
@@ -30,5 +36,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> MoveAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> LookAction;
+
 	void Move(const FInputActionValue& InputActionValue);
+	void Look(const FInputActionValue& InputActionValue);
 };
