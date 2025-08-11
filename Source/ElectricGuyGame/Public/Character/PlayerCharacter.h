@@ -14,6 +14,22 @@ class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 {
 	GENERATED_BODY()
 
+protected:
+	virtual void BeginPlay() override;
+	
+
+	
 public:
 	APlayerCharacter();
+
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
+
+	float RotationSpeed = 400.0f;
+
+	// camera components
+	UPROPERTY(EditAnywhere)
+	class USpringArmComponent* SpringArmComp;
+	UPROPERTY(EditAnywhere)
+	class UCameraComponent* CameraComp;
 };
