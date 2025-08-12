@@ -40,6 +40,15 @@ void AMyPlayerController::BeginPlay()
 	PlayerCamera = GetPawn<APawn>()->GetComponentByClass<UCameraComponent>();
 	PlayerSpringArm = GetPawn<APawn>()->GetComponentByClass<USpringArmComponent>();
 	//PlayerCamera->SetRelativeTransform(FTransform(FRotator(0, 0, 0), FVector(100.0f, 500.0f, 20.0f), FVector(1.0f, 1.0f, 1.0f)));
+	
+	if(InvertCamX)
+	{
+		XModifier = -1;
+	}
+	if(InvertCamY)
+	{
+		YModifier = -1;
+	}
 }
 
 void AMyPlayerController::SetupInputComponent()
@@ -72,10 +81,12 @@ void AMyPlayerController::Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
 
+
+	
 	if (APawn* ControlledPawn = GetPawn<APawn>()) 
 	{
-		ControlledPawn->AddControllerYawInput(InputAxisVector.X);
-		ControlledPawn->AddControllerPitchInput(InputAxisVector.Y);
+		ControlledPawn->AddControllerYawInput(InputAxisVector.X * XModifier);
+		ControlledPawn->AddControllerPitchInput(InputAxisVector.Y * YModifier);
 		//PlayerSpringArm->AddLocalRotation(FRotator(InputAxisVector.Y, InputAxisVector.X, 0.f));
 	}
 }
