@@ -33,7 +33,6 @@ APlayerCharacter::APlayerCharacter()
 
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
-	
 }
 
 void APlayerCharacter::BeginPlay() 

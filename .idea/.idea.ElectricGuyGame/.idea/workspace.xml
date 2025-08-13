@@ -16,10 +16,10 @@
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Player/BP_PlayerCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Player/BP_PlayerCharacter.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Input/IMC_PlayerContext.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Input/IMC_PlayerContext.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Input/InputActions/IA_Jump.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Input/InputActions/IA_Jump.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PlayerController.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Player/BP_PlayerController.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ElectricGuyGame/Private/Character/PlayerCharacter.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ElectricGuyGame/Private/Character/PlayerCharacter.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Source/ElectricGuyGame/Private/Player/MyPlayerController.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ElectricGuyGame/Private/Player/MyPlayerController.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Source/ElectricGuyGame/Public/Player/MyPlayerController.h" beforeDir="false" afterPath="$PROJECT_DIR$/Source/ElectricGuyGame/Public/Player/MyPlayerController.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,6 +192,7 @@
       <workItem from="1754866641638" duration="2908000" />
       <workItem from="1754923033717" duration="10700000" />
       <workItem from="1754958354017" duration="4223000" />
+      <workItem from="1755049668866" duration="7682000" />
     </task>
     <servers />
   </component>

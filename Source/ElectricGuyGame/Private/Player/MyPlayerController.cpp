@@ -7,6 +7,7 @@
 
 #include "Blueprint/WidgetBlueprintLibrary.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/Character.h"
 #include "GameFramework/SpringArmComponent.h"
 
 #include "Runtime/AIModule/Classes/Actions/PawnAction_Move.h"
@@ -59,6 +60,8 @@ void AMyPlayerController::SetupInputComponent()
 
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Move);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Look);
+	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Jump);
+	//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyPlayerController::StopJumping); 
 }
 
 void AMyPlayerController::Move(const FInputActionValue& InputActionValue)
@@ -80,14 +83,33 @@ void AMyPlayerController::Move(const FInputActionValue& InputActionValue)
 void AMyPlayerController::Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
-
-
 	
 	if (APawn* ControlledPawn = GetPawn<APawn>()) 
 	{
 		ControlledPawn->AddControllerYawInput(InputAxisVector.X * XModifier);
 		ControlledPawn->AddControllerPitchInput(InputAxisVector.Y * YModifier);
 		//PlayerSpringArm->AddLocalRotation(FRotator(InputAxisVector.Y, InputAxisVector.X, 0.f));
+	}
+}
+
+void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
+{
+	if (JumpAction)
+	{
+		if (ACharacter* ControlledPawn = GetPawn<ACharacter>()) 
+		{
+			ControlledPawn->Jump();
+
+			//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("JUMP"));
+			
+			/*
+			if (ACharacter* PlayerController = ControlledPawn->GetController<ACharacter>())
+			{
+				GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("JUMP!")); 
+			
+				PlayerController->Jump();
+			}*/
+		}
 	}
 }
 
