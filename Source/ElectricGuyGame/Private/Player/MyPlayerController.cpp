@@ -32,11 +32,15 @@ void AMyPlayerController::BeginPlay()
 
 	// Allows mouse to interact with UI
 	FInputModeGameAndUI InputModeData;
+	FInputModeGameOnly InputModeGameOnly;
 	//InputModeData.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
 	//InputModeData.SetHideCursorDuringCapture(false); 	// Doesn't hide mouse when it enters viewport
 
-	SetInputMode(InputModeData);
-
+	//SetInputMode(InputModeData);
+	SetInputMode(InputModeGameOnly);
+	SetShowMouseCursor(false);
+	
+	
 	// reference to camera
 	PlayerCamera = GetPawn<APawn>()->GetComponentByClass<UCameraComponent>();
 	PlayerSpringArm = GetPawn<APawn>()->GetComponentByClass<USpringArmComponent>();
