@@ -34,6 +34,8 @@ protected:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
 
+	
+
 private:
 	UPROPERTY(EditAnywhere, Category="Input")
 	TObjectPtr<UInputMappingContext> PlayerContext;
@@ -47,6 +49,9 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> JumpAction;
 
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> DashAction;
+
 	// Camera Inverting Modifiers
 	int XModifier = 1;
 	int YModifier = 1;
@@ -54,4 +59,5 @@ private:
 	void Move(const FInputActionValue& InputActionValue);
 	void Look(const FInputActionValue& InputActionValue);
 	void Jump(const FInputActionValue& InputActionValue);
+	void Dash(const FInputActionValue& InputActionValue);
 };

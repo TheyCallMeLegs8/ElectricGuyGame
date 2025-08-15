@@ -65,6 +65,7 @@ void AMyPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Move);
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Look);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Jump);
+	EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Dash);
 	//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyPlayerController::StopJumping); 
 }
 
@@ -113,6 +114,23 @@ void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
 			
 				PlayerController->Jump();
 			}*/
+		}
+	}
+}
+
+void AMyPlayerController::Dash(const FInputActionValue& InputActionValue)
+{
+	if (DashAction)
+	{
+		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DETECTED INPUT"));
+
+		if (ACharacter* ControlledPawn = GetPawn<ACharacter>()) 
+		{
+			GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
+			
+			//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
+			
+			ControlledPawn->LaunchCharacter(ControlledPawn->GetActorForwardVector() * 4400.f, false, false);
 		}
 	}
 }
