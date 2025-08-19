@@ -10,6 +10,8 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionValue;
 
+	//DECLARE_DYNAMIC_MULTICAST_DELEGATE_OneParam(FMyCustomEvent, int32, Value);
+
 /**
  * 
  */
@@ -20,6 +22,12 @@ class ELECTRICGUYGAME_API AMyPlayerController : public APlayerController
 public:
 	AMyPlayerController();
 
+	//UPROPERTY(BlueprintAssignable, Category = "Events")
+	//FMyCustomEvent OnMyCustomEvent;
+
+	DECLARE_MULTICAST_DELEGATE(FOnJumpInput);
+	FOnJumpInput OnJumpInput;
+	
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* PlayerCamera;
 	UPROPERTY(EditAnywhere)

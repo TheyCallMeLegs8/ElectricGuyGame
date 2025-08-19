@@ -21,7 +21,7 @@ void AMyPlayerController::BeginPlay()
 {
 	Super::BeginPlay();
 	check(PlayerContext);
-
+	
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(GetLocalPlayer());
 	check(Subsystem);
 	Subsystem->AddMappingContext(PlayerContext, 0);
@@ -101,6 +101,9 @@ void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
 {
 	if (JumpAction)
 	{
+		OnJumpInput.Broadcast();
+		
+		/*
 		if (ACharacter* ControlledPawn = GetPawn<ACharacter>()) 
 		{
 			ControlledPawn->Jump();
@@ -113,8 +116,8 @@ void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
 				GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("JUMP!")); 
 			
 				PlayerController->Jump();
-			}*/
-		}
+			}
+		}*/
 	}
 }
 

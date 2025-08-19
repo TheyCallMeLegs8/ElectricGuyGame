@@ -16,12 +16,16 @@ class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 
 protected:
 	virtual void BeginPlay() override;
-	
 
-	
+	//UPROPERTY(EditAnywhere)
+	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
+	//= UGameplayStatics::GetPlayerController(this, 0)
 public:
 	APlayerCharacter();
-
+	
+	UFUNCTION()
+	void OnJump();
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 

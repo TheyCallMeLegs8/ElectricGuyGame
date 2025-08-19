@@ -7,6 +7,7 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Player/MyPlayerController.h"
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -35,9 +36,23 @@ APlayerCharacter::APlayerCharacter()
 	GetCharacterMovement()->bOrientRotationToMovement = false;
 }
 
+void APlayerCharacter::OnJump()
+{
+	Jump();
+}
+
 void APlayerCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
+	//check(PlayerController);
+
+	if (AMyPlayerController* PlayerController = GetController<AMyPlayerController>())
+	{
+		PlayerController->OnJumpInput.AddUObject(this, &APlayerCharacter::OnJump);
+	}
+	
+	//PlayerController->OnJumpInput.AddUObject(this, &APlayerCharacter::OnJump);
+	
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
