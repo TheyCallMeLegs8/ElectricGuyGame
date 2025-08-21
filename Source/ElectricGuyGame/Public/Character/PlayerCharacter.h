@@ -13,10 +13,19 @@ UCLASS()
 class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 {
 	GENERATED_BODY()
-
+	
 protected:
 	virtual void BeginPlay() override;
 
+	// Camera Inverting Modifiers
+	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
+	bool InvertCamX = false;
+	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
+	bool InvertCamY = false;
+	
+	int XModifier = 1;
+	int YModifier = 1;
+	
 	//UPROPERTY(EditAnywhere)
 	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
 	//= UGameplayStatics::GetPlayerController(this, 0)
@@ -25,6 +34,12 @@ public:
 	
 	UFUNCTION()
 	void OnJump();
+	UFUNCTION()
+	void OnDash();
+	UFUNCTION()
+	void OnMove(FVector2D InputAxisVector);
+	UFUNCTION()
+	void OnLook(FVector2D InputVector);
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;

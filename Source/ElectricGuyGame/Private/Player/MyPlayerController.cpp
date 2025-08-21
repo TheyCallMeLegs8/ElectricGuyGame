@@ -46,14 +46,6 @@ void AMyPlayerController::BeginPlay()
 	PlayerSpringArm = GetPawn<APawn>()->GetComponentByClass<USpringArmComponent>();
 	//PlayerCamera->SetRelativeTransform(FTransform(FRotator(0, 0, 0), FVector(100.0f, 500.0f, 20.0f), FVector(1.0f, 1.0f, 1.0f)));
 	
-	if(InvertCamX)
-	{
-		XModifier = -1;
-	}
-	if(InvertCamY)
-	{
-		YModifier = -1;
-	}
 }
 
 void AMyPlayerController::SetupInputComponent()
@@ -72,29 +64,23 @@ void AMyPlayerController::SetupInputComponent()
 void AMyPlayerController::Move(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
-	const FRotator Rotation = GetControlRotation();
-	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
 
-	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
-	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
-	
-	if (APawn* ControlledPawn = GetPawn<APawn>()) 
-	{
-		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
-		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
-	}
+	OnMoveInput.Broadcast(InputAxisVector);
 }
 
 void AMyPlayerController::Look(const FInputActionValue& InputActionValue)
 {
 	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
-	
+
+	OnLookInput.Broadcast(InputAxisVector);
+
+	/*
 	if (APawn* ControlledPawn = GetPawn<APawn>()) 
 	{
 		ControlledPawn->AddControllerYawInput(InputAxisVector.X * XModifier);
 		ControlledPawn->AddControllerPitchInput(InputAxisVector.Y * YModifier);
 		//PlayerSpringArm->AddLocalRotation(FRotator(InputAxisVector.Y, InputAxisVector.X, 0.f));
-	}
+	}*/
 }
 
 void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
@@ -102,22 +88,7 @@ void AMyPlayerController::Jump(const FInputActionValue& InputActionValue)
 	if (JumpAction)
 	{
 		OnJumpInput.Broadcast();
-		
-		/*
-		if (ACharacter* ControlledPawn = GetPawn<ACharacter>()) 
-		{
-			ControlledPawn->Jump();
-
-			//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("JUMP"));
-			
-			/*
-			if (ACharacter* PlayerController = ControlledPawn->GetController<ACharacter>())
-			{
-				GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("JUMP!")); 
-			
-				PlayerController->Jump();
-			}
-		}*/
+		//if (ACharacter* PlayerController = ControlledPawn->GetController<ACharacter>())
 	}
 }
 
@@ -127,6 +98,9 @@ void AMyPlayerController::Dash(const FInputActionValue& InputActionValue)
 	{
 		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DETECTED INPUT"));
 
+		OnDashInput.Broadcast();
+
+		/*
 		if (ACharacter* ControlledPawn = GetPawn<ACharacter>()) 
 		{
 			GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
@@ -134,53 +108,6 @@ void AMyPlayerController::Dash(const FInputActionValue& InputActionValue)
 			//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
 			
 			ControlledPawn->LaunchCharacter(ControlledPawn->GetActorForwardVector() * 4400.f, false, false);
-		}
+		}*/
 	}
 }
-
-/*
-void AMyPlayerController::Look(const FInputActionValue& InputActionValue)
-{
-	if (float FloatValue = InputActionValue.Get<float>())
-	{
-		float temp = PlayerSpringArm->GetRelativeRotation().Pitch + FloatValue;
-		if (temp < 25 && temp > -65)
-		{
-			PlayerSpringArm->AddLocalRotation(FRotator(FloatValue, 0.f, 0.f));
-		}
-	}
-
-	if (float FloatValue = InputActionValue.Get<float>())
-	{
-		float temp = PlayerSpringArm->GetRelativeRotation().Yaw + FloatValue;
-		if (temp < 25 && temp > -65)
-		{
-			PlayerSpringArm->AddLocalRotation(FRotator(0.f, FloatValue, 0.f));
-		}
-	}
-}
-
-
-void AMyPlayerController::Look(float& InputActionValue)
-{
-	if (InputActionValue)
-	{
-		float temp = PlayerSpringArm->GetRelativeRotation().Pitch + InputActionValue;
-		if (temp < 25 && temp > -65)
-		{
-			PlayerSpringArm->AddLocalRotation(FRotator(InputActionValue, 0.f, 0.f));
-		}
-	}
-}
-
-void AMyPlayerController::Look(const FInputActionValue& InputActionValue)
-{
-
-	const FVector2D InputAxisVector = InputActionValue.Get<FVector2D>();
-
-	if (APawn* ControlledPawn = GetPawn<APawn>()) 
-	{
-		PlayerSpringArm->AddLocalRotation(FRotator(InputAxisVector.Y, InputAxisVector.X, 0.f));
-	}
-}
-*/
