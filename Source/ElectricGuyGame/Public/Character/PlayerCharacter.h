@@ -28,7 +28,7 @@ protected:
 	//FTimerManager& TimerManager = GetWorldTimerManager();
 	FTimerHandle DashCooldownTimer;
 
-	
+	float DashForce;
 	
 	// Camera Inverting Modifiers
 	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)

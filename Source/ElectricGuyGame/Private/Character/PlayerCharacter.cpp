@@ -37,6 +37,7 @@ APlayerCharacter::APlayerCharacter()
 
 	DashCooldown = 2.0f;
 	CanDash = true;
+	DashForce = 4400.f;
 }
 
 void APlayerCharacter::OnJump()
@@ -52,7 +53,7 @@ void APlayerCharacter::OnDash()
 			
 	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
 			
-	LaunchCharacter(GetActorForwardVector() * 4400.f, false, false);
+	LaunchCharacter(GetActorForwardVector() * DashForce, false, false);
 
 	CanDash = false;
 	//FTimerHandle DashTimerHandle;
