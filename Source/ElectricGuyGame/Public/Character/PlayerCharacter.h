@@ -17,12 +17,24 @@ class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 protected:
 	virtual void BeginPlay() override;
 
+	//Dash variables
+	UFUNCTION()
+	void ResetDashCooldown();
+	UPROPERTY(EditAnywhere)
+	bool CanDash;
+	UPROPERTY(EditAnywhere)
+	float DashCooldown;
+	
+	//FTimerManager& TimerManager = GetWorldTimerManager();
+	FTimerHandle DashCooldownTimer;
+
+	
+	
 	// Camera Inverting Modifiers
 	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
 	bool InvertCamX = false;
 	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
 	bool InvertCamY = false;
-	
 	int XModifier = 1;
 	int YModifier = 1;
 	

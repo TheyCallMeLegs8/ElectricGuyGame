@@ -34,6 +34,9 @@ APlayerCharacter::APlayerCharacter()
 
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
+
+	DashCooldown = 2.0f;
+	CanDash = true;
 }
 
 void APlayerCharacter::OnJump()
@@ -43,11 +46,23 @@ void APlayerCharacter::OnJump()
 
 void APlayerCharacter::OnDash()
 {
+	if (!CanDash) return;
+	
 	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
 			
 	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
 			
 	LaunchCharacter(GetActorForwardVector() * 4400.f, false, false);
+
+	CanDash = false;
+	//FTimerHandle DashTimerHandle;
+	//TimerManager.SetTimer(DashTimerHandle, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
+	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
+}
+
+void APlayerCharacter::ResetDashCooldown()
+{
+	CanDash = true;
 }
 
 void APlayerCharacter::OnMove(FVector2D InputAxisVector)
@@ -88,6 +103,7 @@ void APlayerCharacter::BeginPlay()
 	if(InvertCamY) YModifier = -1;
 
 }
+
 
 void APlayerCharacter::Tick(float DeltaTime)
 {
