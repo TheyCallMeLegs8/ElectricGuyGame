@@ -18,17 +18,16 @@ protected:
 	virtual void BeginPlay() override;
 
 	//Dash variables
-	UFUNCTION()
-	void ResetDashCooldown();
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash Components")
 	bool CanDash;
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash Components")
 	float DashCooldown;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash Components")
+	float DashForce;
 	
 	//FTimerManager& TimerManager = GetWorldTimerManager();
 	FTimerHandle DashCooldownTimer;
 
-	float DashForce;
 	
 	// Camera Inverting Modifiers
 	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
@@ -37,6 +36,22 @@ protected:
 	bool InvertCamY = false;
 	int XModifier = 1;
 	int YModifier = 1;
+
+
+	UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
+	UCapsuleComponent* CapsuleCollider;
+	
+	// trigger collider variables
+	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TriggerBox")
+	UCapsuleComponent* CapsuleCollider;
+	*/
+	UFUNCTION()
+	void BeginOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
 	
 	//UPROPERTY(EditAnywhere)
 	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
@@ -58,6 +73,12 @@ public:
 
 	float RotationSpeed = 400.0f;
 
+	// HEY
+	// WE TURN THIS INTO AN EVENT
+	// HEY
+	UFUNCTION()
+	void ResetDashCooldown();
+	
 	// camera components
 	UPROPERTY(EditAnywhere)
 	class USpringArmComponent* SpringArmComp;

@@ -5,9 +5,12 @@
 
 #include "MovieSceneTracksComponentTypes.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Interfaces/Collectible.h"
 #include "Player/MyPlayerController.h"
+
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -38,7 +41,12 @@ APlayerCharacter::APlayerCharacter()
 	DashCooldown = 2.0f;
 	CanDash = true;
 	DashForce = 4400.f;
+
+	CapsuleCollider = GetCapsuleComponent();
+	//CapsuleCollider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleTrigger"));
+	//CapsuleCollider->SetGenerateOverlapEvents(true);
 }
+
 
 void APlayerCharacter::OnJump()
 {
@@ -64,6 +72,7 @@ void APlayerCharacter::OnDash()
 void APlayerCharacter::ResetDashCooldown()
 {
 	CanDash = true;
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH Reset"));
 }
 
 void APlayerCharacter::OnMove(FVector2D InputAxisVector)
@@ -103,8 +112,21 @@ void APlayerCharacter::BeginPlay()
 	if(InvertCamX) XModifier = -1;
 	if(InvertCamY) YModifier = -1;
 
+	CapsuleCollider->OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
 }
 
+void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("TOUCHING"));
+	//APlayerCharacter* Player = Cast<APlayerCharacter>(Collector)
+	if (OtherActor->GetClass()->ImplementsInterface(UCollectible::StaticClass()))
+	{
+		ICollectible* CollidedCollectable = Cast<ICollectible>(OtherActor);
+		CollidedCollectable->Collect(this);
+		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Dashshhsh"));
+	}
+}
 
 void APlayerCharacter::Tick(float DeltaTime)
 {
