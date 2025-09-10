@@ -45,6 +45,7 @@ APlayerCharacter::APlayerCharacter()
 	CapsuleCollider = GetCapsuleComponent();
 	//CapsuleCollider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleTrigger"));
 	//CapsuleCollider->SetGenerateOverlapEvents(true);
+	MovementComponent = GetCharacterMovement();
 }
 
 
@@ -57,7 +58,7 @@ void APlayerCharacter::OnDash()
 {
 	if (!CanDash) return;
 	
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
 			
 	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
 			
@@ -72,7 +73,7 @@ void APlayerCharacter::OnDash()
 void APlayerCharacter::ResetDashCooldown()
 {
 	CanDash = true;
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH Reset"));
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH Reset"));
 }
 
 void APlayerCharacter::OnMove(FVector2D InputAxisVector)
@@ -91,6 +92,7 @@ void APlayerCharacter::OnLook(FVector2D InputVector)
 {
 	AddControllerYawInput(InputVector.X * XModifier);
 	AddControllerPitchInput(InputVector.Y * YModifier);
+	
 }
 
 void APlayerCharacter::BeginPlay() 
@@ -118,13 +120,13 @@ void APlayerCharacter::BeginPlay()
 void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("TOUCHING"));
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("TOUCHING"));
 	//APlayerCharacter* Player = Cast<APlayerCharacter>(Collector)
 	if (OtherActor->GetClass()->ImplementsInterface(UCollectible::StaticClass()))
 	{
 		ICollectible* CollidedCollectable = Cast<ICollectible>(OtherActor);
 		CollidedCollectable->Collect(this);
-		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Dashshhsh"));
+		//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Dashshhsh"));
 	}
 }
 

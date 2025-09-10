@@ -9,7 +9,7 @@ void ADashCrystal::Collect(AActor* Collector)
 {
 	if (APlayerCharacter* Player = Cast<APlayerCharacter>(Collector))
 	{
-		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("COLLECTED DASH CRYSTAL"));
+		//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("COLLECTED DASH CRYSTAL"));
 		Player->ResetDashCooldown();
 	}
 }

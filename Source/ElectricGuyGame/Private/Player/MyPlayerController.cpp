@@ -96,7 +96,7 @@ void AMyPlayerController::Dash(const FInputActionValue& InputActionValue)
 {
 	if (DashAction)
 	{
-		GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DETECTED INPUT"));
+		//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DETECTED INPUT"));
 
 		OnDashInput.Broadcast();
 

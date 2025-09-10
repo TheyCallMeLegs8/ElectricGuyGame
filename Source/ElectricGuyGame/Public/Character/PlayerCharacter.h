@@ -28,37 +28,6 @@ protected:
 	//FTimerManager& TimerManager = GetWorldTimerManager();
 	FTimerHandle DashCooldownTimer;
 
-	
-	// Camera Inverting Modifiers
-	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
-	bool InvertCamX = false;
-	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
-	bool InvertCamY = false;
-	int XModifier = 1;
-	int YModifier = 1;
-
-
-	UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
-	UCapsuleComponent* CapsuleCollider;
-	
-	// trigger collider variables
-	/*UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = "TriggerBox")
-	UCapsuleComponent* CapsuleCollider;
-	*/
-	UFUNCTION()
-	void BeginOverlap(UPrimitiveComponent* OverlappedComponent,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		int32 OtherBodyIndex,
-		bool bFromSweep,
-		const FHitResult& SweepResult);
-	
-	//UPROPERTY(EditAnywhere)
-	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
-	//= UGameplayStatics::GetPlayerController(this, 0)
-public:
-	APlayerCharacter();
-	
 	UFUNCTION()
 	void OnJump();
 	UFUNCTION()
@@ -68,11 +37,39 @@ public:
 	UFUNCTION()
 	void OnLook(FVector2D InputVector);
 	
+	// Camera Inverting Modifiers
+	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
+	bool InvertCamX = false;
+	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
+	bool InvertCamY = false;
+	int XModifier = 1;
+	int YModifier = 1;
+	
+	UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
+	UCapsuleComponent* CapsuleCollider;
+	
+	UFUNCTION()
+	void BeginOverlap(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);
+	
+	UPROPERTY(EditAnywhere)
+	UCharacterMovementComponent* MovementComponent;
+	
+	//UPROPERTY(EditAnywhere)
+	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
+	//= UGameplayStatics::GetPlayerController(this, 0)
+public:
+	APlayerCharacter();
+	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 	float RotationSpeed = 400.0f;
-
+	
 	// HEY
 	// WE TURN THIS INTO AN EVENT
 	// HEY
