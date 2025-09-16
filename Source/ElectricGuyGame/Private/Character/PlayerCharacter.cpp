@@ -12,6 +12,7 @@
 #include "Player/MyPlayerController.h"
 
 
+
 APlayerCharacter::APlayerCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
@@ -41,7 +42,8 @@ APlayerCharacter::APlayerCharacter()
 	DashCooldown = 2.0f;
 	CanDash = true;
 	DashForce = 4400.f;
-
+	CanResetDash = false;
+	
 	CapsuleCollider = GetCapsuleComponent();
 	//CapsuleCollider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleTrigger"));
 	//CapsuleCollider->SetGenerateOverlapEvents(true);
@@ -67,13 +69,42 @@ void APlayerCharacter::OnDash()
 	CanDash = false;
 	//FTimerHandle DashTimerHandle;
 	//TimerManager.SetTimer(DashTimerHandle, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
-	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
+	CanResetDash = false;
+	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::CheckIfResetDashIsViable, DashCooldown, false, -1);
+}
+
+void APlayerCharacter::CheckIfResetDashIsViable()
+{
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH TRY Reset"));
+	GetWorldTimerManager().ClearTimer(DashCooldownTimer);
+	CanResetDash = true;
+	if (MovementComponent->IsWalking())
+	{
+		ResetDashCooldown();
+		//return true;
+	}
+	else
+	{
+		//CanDash = false;
+		//return false;
+	}
 }
 
 void APlayerCharacter::ResetDashCooldown()
 {
 	CanDash = true;
-	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH Reset"));
+	GetWorldTimerManager().ClearTimer(DashCooldownTimer);
+}
+
+void APlayerCharacter::Landed(const FHitResult& Hit)
+{
+	Super::Landed(Hit);
+	//GetWorldTimerManager().ClearTimer(DashCooldownTimer);
+	if (CanResetDash)
+	{
+		ResetDashCooldown();
+	}
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Landed!!"));
 }
 
 void APlayerCharacter::OnMove(FVector2D InputAxisVector)

@@ -24,6 +24,8 @@ protected:
 	float DashCooldown;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash Components")
 	float DashForce;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Dash Components")
+	bool CanResetDash;
 	
 	//FTimerManager& TimerManager = GetWorldTimerManager();
 	FTimerHandle DashCooldownTimer;
@@ -58,6 +60,9 @@ protected:
 	
 	UPROPERTY(EditAnywhere)
 	UCharacterMovementComponent* MovementComponent;
+
+	//UFUNCTION (BlueprintImplementableEvent)
+	virtual void Landed(const FHitResult& Hit) override;
 	
 	//UPROPERTY(EditAnywhere)
 	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
@@ -70,6 +75,8 @@ public:
 
 	float RotationSpeed = 400.0f;
 	
+	UFUNCTION()
+	void CheckIfResetDashIsViable();
 	// HEY
 	// WE TURN THIS INTO AN EVENT
 	// HEY
