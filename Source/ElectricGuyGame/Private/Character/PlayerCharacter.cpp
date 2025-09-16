@@ -5,9 +5,12 @@
 
 #include "MovieSceneTracksComponentTypes.h"
 #include "Camera/CameraComponent.h"
+#include "Components/CapsuleComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/SpringArmComponent.h"
+#include "Interfaces/Collectible.h"
 #include "Player/MyPlayerController.h"
+
 
 APlayerCharacter::APlayerCharacter()
 {
@@ -34,25 +37,97 @@ APlayerCharacter::APlayerCharacter()
 
 	bUseControllerRotationYaw = false;
 	GetCharacterMovement()->bOrientRotationToMovement = false;
+
+	DashCooldown = 2.0f;
+	CanDash = true;
+	DashForce = 4400.f;
+
+	CapsuleCollider = GetCapsuleComponent();
+	//CapsuleCollider = CreateDefaultSubobject<UCapsuleComponent>(TEXT("CapsuleTrigger"));
+	//CapsuleCollider->SetGenerateOverlapEvents(true);
+	MovementComponent = GetCharacterMovement();
 }
+
 
 void APlayerCharacter::OnJump()
 {
 	Jump();
 }
 
+void APlayerCharacter::OnDash()
+{
+	if (!CanDash) return;
+	
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
+			
+	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
+			
+	LaunchCharacter(GetActorForwardVector() * DashForce, false, false);
+
+	CanDash = false;
+	//FTimerHandle DashTimerHandle;
+	//TimerManager.SetTimer(DashTimerHandle, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
+	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
+}
+
+void APlayerCharacter::ResetDashCooldown()
+{
+	CanDash = true;
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH Reset"));
+}
+
+void APlayerCharacter::OnMove(FVector2D InputAxisVector)
+{
+	const FRotator Rotation = GetControlRotation();
+	const FRotator YawRotation(0.f, Rotation.Yaw, 0.f);
+
+	const FVector ForwardDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+	const FVector RightDirection = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);
+	
+	AddMovementInput(ForwardDirection, InputAxisVector.Y);
+	AddMovementInput(RightDirection, InputAxisVector.X);
+}
+
+void APlayerCharacter::OnLook(FVector2D InputVector)
+{
+	AddControllerYawInput(InputVector.X * XModifier);
+	AddControllerPitchInput(InputVector.Y * YModifier);
+	
+}
+
 void APlayerCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
 	//check(PlayerController);
-
+	
 	if (AMyPlayerController* PlayerController = GetController<AMyPlayerController>())
 	{
 		PlayerController->OnJumpInput.AddUObject(this, &APlayerCharacter::OnJump);
+		PlayerController->OnDashInput.AddUObject(this, &APlayerCharacter::OnDash);
+		PlayerController->OnMoveInput.AddUObject(this, &APlayerCharacter::OnMove);
+		PlayerController->OnLookInput.AddUObject(this, &APlayerCharacter::OnLook);
 	}
 	
 	//PlayerController->OnJumpInput.AddUObject(this, &APlayerCharacter::OnJump);
-	
+
+	// inverts camera directions if needed
+	if(InvertCamX) XModifier = -1;
+	if(InvertCamY) YModifier = -1;
+
+	CapsuleCollider->OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
+}
+
+void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("TOUCHING"));
+	//APlayerCharacter* Player = Cast<APlayerCharacter>(Collector)
+	if (OtherActor->GetClass()->ImplementsInterface(UCollectible::StaticClass()))
+	{
+		ICollectible* CollidedCollectable = Cast<ICollectible>(OtherActor);
+		CollidedCollectable->Collect(this);
+		//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Dashshhsh"));
+	}
 }
 
 void APlayerCharacter::Tick(float DeltaTime)
