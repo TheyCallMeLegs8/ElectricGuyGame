@@ -59,7 +59,7 @@ void APlayerCharacter::OnJump()
 void APlayerCharacter::OnDash()
 {
 	if (!CanDash) return;
-	
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Blue, TEXT("HA HAHAHAHAHA"));
 	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
 			
 	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
