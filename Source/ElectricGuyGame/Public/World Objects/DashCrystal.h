@@ -23,8 +23,8 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-	UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
-	UCapsuleComponent* CapsuleCollider;
+	//UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
+	//UCapsuleComponent* CapsuleCollider;
 	
 public:	
 	// Called every frame
