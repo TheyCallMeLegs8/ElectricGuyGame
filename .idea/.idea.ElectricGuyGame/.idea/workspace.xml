@@ -14,8 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2844f55-f884-4779-8315-c479ca42e0da" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Scenes/MarkLevels/SampleLevel1.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Scenes/MarkLevels/SampleLevel1.umap" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Art/Materials/M_BouncePadTop.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_MovingPlatform.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_MovingPlatformLongV.uasset" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Content/Scenes/MarkLevels/TestLevels.umap" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/Character/Player/BP_PlayerCharacter.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/Character/Player/BP_PlayerCharacter.uasset" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
