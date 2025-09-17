@@ -29,7 +29,7 @@ public:
 	DECLARE_MULTICAST_DELEGATE(FOnJumpInput);
 	FOnJumpInput OnJumpInput;
 	DECLARE_MULTICAST_DELEGATE(FOnDashInput);
-	FOnJumpInput OnDashInput;
+	FOnDashInput OnDashInput;
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnMoveInput, FVector2D);
 	FOnMoveInput OnMoveInput;
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnLookInput, FVector2D);

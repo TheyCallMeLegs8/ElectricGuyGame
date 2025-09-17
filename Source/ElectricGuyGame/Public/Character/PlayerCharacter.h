@@ -82,6 +82,9 @@ public:
 	// HEY
 	UFUNCTION()
 	void ResetDashCooldown();
+	bool GetCanDash();
+	DECLARE_MULTICAST_DELEGATE(FOnPlayerDash);
+	FOnPlayerDash OnPlayerDash;
 	
 	// camera components
 	UPROPERTY(EditAnywhere)

@@ -57,25 +57,29 @@ void APlayerCharacter::OnJump()
 }
 
 void APlayerCharacter::OnDash()
-{
-	if (!CanDash) return;
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Blue, TEXT("HA HAHAHAHAHA"));
-	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("DASHED"));
+{/*
+	if (!CanDash) return
 			
-	//UE::Math::TVector<double> LaunchVelocity = ControlledPawn->GetVelocity() * 10.f;
+	LaunchCharacter(GetActorForwardVector() * DashForce, false, false);
+	OnPlayerDash.Broadcast();
+
+	CanDash = false;
+	CanResetDash = false;
+	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::CheckIfResetDashIsViable, DashCooldown, false, -1);
+	*/
+	if (!CanDash) return;
 			
 	LaunchCharacter(GetActorForwardVector() * DashForce, false, false);
 
 	CanDash = false;
-	//FTimerHandle DashTimerHandle;
-	//TimerManager.SetTimer(DashTimerHandle, this, &APlayerCharacter::ResetDashCooldown, DashCooldown, false, -1);
 	CanResetDash = false;
 	GetWorld()->GetTimerManager().SetTimer(DashCooldownTimer, this, &APlayerCharacter::CheckIfResetDashIsViable, DashCooldown, false, -1);
+	OnPlayerDash.Broadcast();
 }
 
 void APlayerCharacter::CheckIfResetDashIsViable()
 {
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH TRY Reset"));
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("DASH TRY Reset"));
 	GetWorldTimerManager().ClearTimer(DashCooldownTimer);
 	CanResetDash = true;
 	if (MovementComponent->IsWalking())
@@ -96,6 +100,11 @@ void APlayerCharacter::ResetDashCooldown()
 	GetWorldTimerManager().ClearTimer(DashCooldownTimer);
 }
 
+bool APlayerCharacter::GetCanDash()
+{
+	return CanDash;
+}
+
 void APlayerCharacter::Landed(const FHitResult& Hit)
 {
 	Super::Landed(Hit);
@@ -104,7 +113,7 @@ void APlayerCharacter::Landed(const FHitResult& Hit)
 	{
 		ResetDashCooldown();
 	}
-	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Landed!!"));
+	//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("Landed!!"));
 }
 
 void APlayerCharacter::OnMove(FVector2D InputAxisVector)
@@ -146,6 +155,7 @@ void APlayerCharacter::BeginPlay()
 	if(InvertCamY) YModifier = -1;
 
 	CapsuleCollider->OnComponentBeginOverlap.AddDynamic(this, &APlayerCharacter::BeginOverlap);
+	//CapsuleCollider->OnComponentEndOverlap.AddDynamic(this, &APlayerCharacter::EndOverlap);
 }
 
 void APlayerCharacter::BeginOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
