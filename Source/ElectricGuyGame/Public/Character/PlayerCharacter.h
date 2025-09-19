@@ -83,7 +83,8 @@ public:
 	UFUNCTION()
 	void ResetDashCooldown();
 	bool GetCanDash();
-	DECLARE_MULTICAST_DELEGATE(FOnPlayerDash);
+	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerDash);
+	UPROPERTY(BlueprintAssignable, BlueprintCallable)
 	FOnPlayerDash OnPlayerDash;
 	
 	// camera components
