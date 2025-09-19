@@ -14,9 +14,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b2844f55-f884-4779-8315-c479ca42e0da" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_RotatingPlatform.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_MovingPlatformLongV.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_MovingPlatformLongV.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_RotatingPlatform.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_RotatingPlatform.uasset" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Scenes/MarkLevels/TestLevels.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Scenes/MarkLevels/TestLevels.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -224,7 +223,8 @@
       <workItem from="1755747657183" duration="4480000" />
       <workItem from="1758057659966" duration="1258000" />
       <workItem from="1758063912694" duration="563000" />
-      <workItem from="1758230480002" duration="4383000" />
+      <workItem from="1758230480002" duration="5158000" />
+      <workItem from="1758239168016" duration="999000" />
     </task>
     <servers />
   </component>
