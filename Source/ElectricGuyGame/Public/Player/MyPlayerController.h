@@ -34,6 +34,8 @@ public:
 	FOnMoveInput OnMoveInput;
 	DECLARE_MULTICAST_DELEGATE_OneParam(FOnLookInput, FVector2D);
 	FOnLookInput OnLookInput;
+	DECLARE_MULTICAST_DELEGATE(FOnWireDashInput);
+	FOnWireDashInput OnWireDashInput;
 	
 	UPROPERTY(EditAnywhere)
 	class UCameraComponent* PlayerCamera;
@@ -61,9 +63,13 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = "Input")
 	TObjectPtr<UInputAction> DashAction;
+
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputAction> WireDashAction;
 	
 	void Move(const FInputActionValue& InputActionValue);
 	void Look(const FInputActionValue& InputActionValue);
 	void Jump(const FInputActionValue& InputActionValue);
 	void Dash(const FInputActionValue& InputActionValue);
+	void WireDash(const FInputActionValue& InputActionValue);
 };

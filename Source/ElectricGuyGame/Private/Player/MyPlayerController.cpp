@@ -58,6 +58,7 @@ void AMyPlayerController::SetupInputComponent()
 	EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Look);
 	EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Jump);
 	EnhancedInputComponent->BindAction(DashAction, ETriggerEvent::Triggered, this, &AMyPlayerController::Dash);
+	EnhancedInputComponent->BindAction(WireDashAction, ETriggerEvent::Triggered, this, &AMyPlayerController::WireDash);
 	//EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &AMyPlayerController::StopJumping); 
 }
 
@@ -109,5 +110,14 @@ void AMyPlayerController::Dash(const FInputActionValue& InputActionValue)
 			
 			ControlledPawn->LaunchCharacter(ControlledPawn->GetActorForwardVector() * 4400.f, false, false);
 		}*/
+	}
+}
+
+void AMyPlayerController::WireDash(const FInputActionValue& InputActionValue)
+{
+	if (WireDashAction)
+	{
+		//GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Yellow, TEXT("FIRST PHASE WIRE DASH"));
+		OnWireDashInput.Broadcast();
 	}
 }

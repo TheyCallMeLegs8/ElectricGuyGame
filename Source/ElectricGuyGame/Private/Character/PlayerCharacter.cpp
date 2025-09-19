@@ -135,6 +135,11 @@ void APlayerCharacter::OnLook(FVector2D InputVector)
 	
 }
 
+void APlayerCharacter::OnWireDash()
+{
+	GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("WireDash"));
+}
+
 void APlayerCharacter::BeginPlay() 
 {
 	Super::BeginPlay();
@@ -146,6 +151,7 @@ void APlayerCharacter::BeginPlay()
 		PlayerController->OnDashInput.AddUObject(this, &APlayerCharacter::OnDash);
 		PlayerController->OnMoveInput.AddUObject(this, &APlayerCharacter::OnMove);
 		PlayerController->OnLookInput.AddUObject(this, &APlayerCharacter::OnLook);
+		PlayerController->OnWireDashInput.AddUObject(this, &APlayerCharacter::OnWireDash);
 	}
 	
 	//PlayerController->OnJumpInput.AddUObject(this, &APlayerCharacter::OnJump);

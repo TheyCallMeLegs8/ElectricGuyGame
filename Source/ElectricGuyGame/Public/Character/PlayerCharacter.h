@@ -38,6 +38,8 @@ protected:
 	void OnMove(FVector2D InputAxisVector);
 	UFUNCTION()
 	void OnLook(FVector2D InputVector);
+	UFUNCTION()
+	void OnWireDash();
 	
 	// Camera Inverting Modifiers
 	UPROPERTY(EditAnywhere, Category = "Camera Modifiers", BlueprintReadWrite)
