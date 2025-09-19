@@ -43,7 +43,7 @@ void ADashCrystal::Collect(AActor* Collector)
 		}
 		else
 		{
-			CollidedPlayer->OnPlayerDash.AddUObject(this, &ADashCrystal::RefreshPlayerDash);
+			CollidedPlayer->OnPlayerDash.AddDynamic(this, &ADashCrystal::RefreshPlayerDash);
 			GEngine->AddOnScreenDebugMessage(-1,5.0f, FColor::Red, TEXT("Subscribed"));
 		}
 		
