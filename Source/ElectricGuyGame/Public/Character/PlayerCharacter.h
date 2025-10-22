@@ -4,11 +4,14 @@
 
 #include "CoreMinimal.h"
 #include "Character/CharacterBase.h"
+#include "Components/SphereComponent.h"
 #include "PlayerCharacter.generated.h"
 
 /**
  * 
  */
+class UCapsuleComponent;
+
 UCLASS()
 class ELECTRICGUYGAME_API APlayerCharacter : public ACharacterBase
 {
@@ -48,9 +51,14 @@ protected:
 	bool InvertCamY = false;
 	int XModifier = 1;
 	int YModifier = 1;
-	
+
+	// Collector Capsule
 	UPROPERTY(EditAnywhere, Category = "Capsule", BlueprintReadWrite)
 	UCapsuleComponent* CapsuleCollider;
+	
+	// WireDash Capsule
+	UPROPERTY(EditAnywhere, Category = "Wire Dash", BlueprintReadWrite)
+	UCapsuleComponent* WireDashCollider;
 	
 	UFUNCTION()
 	void BeginOverlap(UPrimitiveComponent* OverlappedComponent,
@@ -59,12 +67,26 @@ protected:
 		int32 OtherBodyIndex,
 		bool bFromSweep,
 		const FHitResult& SweepResult);
+
+	/*
+	UFUNCTION()
+	void WireDashCollideCheck(UPrimitiveComponent* OverlappedComponent,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult);*/
 	
 	UPROPERTY(EditAnywhere)
 	UCharacterMovementComponent* MovementComponent;
 
 	//UFUNCTION (BlueprintImplementableEvent)
 	virtual void Landed(const FHitResult& Hit) override;
+
+	UFUNCTION()
+	void EnableWireDashCollider();
+	UFUNCTION()
+	void DisableWireDashCollider();
 	
 	//UPROPERTY(EditAnywhere)
 	//AMyPlayerController* PlayerController = GetController<AMyPlayerController>();
@@ -74,15 +96,18 @@ public:
 	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+	
 	float RotationSpeed = 400.0f;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Wire Dash")
+	float WireDashCheckRadius;
 	
 	UFUNCTION()
 	void CheckIfResetDashIsViable();
 	// HEY
 	// WE TURN THIS INTO AN EVENT
 	// HEY
-	UFUNCTION()
+	UFUNCTION(Blueprintable)
 	void ResetDashCooldown();
 	bool GetCanDash();
 	DECLARE_DYNAMIC_MULTICAST_DELEGATE(FOnPlayerDash);
