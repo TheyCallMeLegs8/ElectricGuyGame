@@ -16,6 +16,8 @@
     <list default="true" id="b2844f55-f884-4779-8315-c479ca42e0da" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.ElectricGuyGame/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_BreakablePlatform.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_BreakablePlatform.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_RotatingPlatform.uasset" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Blueprints/LevelElements/BP_RotatingPlatform.uasset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Content/Scenes/MarkLevels/TestLevels.umap" beforeDir="false" afterPath="$PROJECT_DIR$/Content/Scenes/MarkLevels/TestLevels.umap" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -226,6 +228,9 @@
       <workItem from="1758239168016" duration="999000" />
       <workItem from="1758930838817" duration="788000" />
       <workItem from="1759532824298" duration="761000" />
+      <workItem from="1760483282575" duration="712000" />
+      <workItem from="1760492112504" duration="1360000" />
+      <workItem from="1760498409477" duration="304000" />
     </task>
     <servers />
   </component>
